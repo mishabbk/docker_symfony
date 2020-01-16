@@ -12,11 +12,20 @@
 
 ### Move docker to another project
 **Need copy folder:**
+
 - docker
+
 **Need cope files:**
+
 - .dockerignore
+
 - env.prod
+
 - docker-compose.yml
+
 - docker-compose-prod.yml
+
 - Dockerfile
+
 - Makefile
+
