@@ -23,6 +23,7 @@ services:
       - mysql
     links:
       - mysql
+    restart: always
 
   mysql:
     image: mysql:8.0
@@ -35,6 +36,8 @@ services:
       - "3306:3306"
     volumes:
       - ./var/mysql-data:/var/lib/mysql
+    restart: always
+
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -46,3 +49,4 @@ services:
     environment:
       PMA_HOST: mysql
       PMA_PORT: 3306
+    restart: always
