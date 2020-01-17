@@ -62,6 +62,9 @@ COPY ./docker/$BUILD_ARGUMENT_ENV/php.ini /usr/local/etc/php/php.ini
 RUN a2enmod rewrite
 RUN a2enmod ssl
 
+# put redis config
+COPY ./docker/redis/redis.conf /usr/local/etc/redis/redis.conf
+
 # install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 

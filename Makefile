@@ -29,6 +29,9 @@ env-prod:
 ssh:
 	@docker-compose $(project) exec symfony bash
 
+ssh-redis:
+	@docker-compose $(project) exec redis redis-cli
+
 exec:
 	@docker-compose $(project) exec symfony $$cmd
 

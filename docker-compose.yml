@@ -4,13 +4,14 @@ services:
 
   symfony:
     image: symfony:latest
+    container_name: symfony
+    restart: always
     build:
       context: .
       args:
         - "BUILD_ARGUMENT_ENV=dev"
         - "BUILD_ARGUMENT_DEBUG_ENABLED=false"
       dockerfile: ./Dockerfile
-    container_name: symfony
     expose:
       - "80"
       - "443"
@@ -21,13 +22,15 @@ services:
       - .:/var/www/html
     depends_on:
       - mysql
+      - redis
     links:
       - mysql
-    restart: always
+      - redis
 
   mysql:
     image: mysql:8.0
     container_name: mysql
+    restart: always
     command: --default-authentication-plugin=mysql_native_password
     environment:
       - MYSQL_ROOT_PASSWORD=secret
@@ -36,12 +39,12 @@ services:
       - "3306:3306"
     volumes:
       - ./var/mysql-data:/var/lib/mysql
-    restart: always
 
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
+    restart: always
     links:
       - mysql
     ports:
@@ -49,4 +52,12 @@ services:
     environment:
       PMA_HOST: mysql
       PMA_PORT: 3306
+
+  redis:
+    image: redis
+    container_name: redis
     restart: always
+    volumes:
+      - ./var/redis/data:/data
+    ports:
+      - 6379:6379
